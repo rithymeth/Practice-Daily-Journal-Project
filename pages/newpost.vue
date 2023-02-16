@@ -11,7 +11,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="dark" @click="savePost">Post</v-btn>
+        <v-btn style="background-color: #2196f3; color: white;" @click="savePost">Post</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

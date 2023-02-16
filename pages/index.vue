@@ -7,10 +7,20 @@
             {{ post.title }}
           </v-card-title>
           <v-card-text>
-            {{ limitText(post.content, 100) }}
+            {{ truncate(post.content, 100) }}
           </v-card-text>
           <v-card-actions>
-            <v-btn color="dark" :to="'/' + post.id">Read</v-btn>
+            <v-btn style="background-color: #2196f3; color: white;" :to="{ name: 'id', params: { id: post.id } }"
+              >Read</v-btn
+            >
+            <v-spacer></v-spacer>
+            <v-btn
+            style="background-color: #FFC107; color: white;"
+              :to="{ name: 'edit', params: { id: post.id } }"
+              >Edit</v-btn
+            >
+            <v-spacer></v-spacer>
+            <v-btn style="background-color: #FF5252; color: white;" @click="deletePost(post.id)">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -20,23 +30,32 @@
 
 <script>
 export default {
-  computed: {
-    posts() {
-      return this.$store.state.posts
-    }
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  async created() {
+    const { data } = await this.$axios.get(
+      "http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries"
+    );
+    this.posts = data;
   },
   methods: {
-    limitText(text, limit) {
-      const words = text.split(' ')
-      if (words.length > limit) {
-        return words.slice(0, limit).join(' ') + '...'
-      } else {
-        return text
+    async deletePost(id) {
+      if (confirm("Are you sure you want to delete this post?")) {
+        await this.$axios.delete(
+          `http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries/${id}`
+        );
+        this.posts = this.posts.filter((post) => post.id !== id);
       }
-    }
+    },
+    truncate(text, length) {
+      if (text && text.length > length) {
+        return text.substring(0, length) + "...";
+      }
+      return text;
+    },
   },
-  async fetch() {
-    await this.$store.dispatch('fetchPosts')
-  }
-}
+};
 </script>

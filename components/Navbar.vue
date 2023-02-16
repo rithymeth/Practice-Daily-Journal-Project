@@ -4,7 +4,7 @@
     <v-toolbar-title>Daily Journal</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn color="white" :to="'/'">Home</v-btn>
-    <v-btn color="white" :to="'/new-post'">New Post</v-btn>
+    <v-btn color="white" :to="'/newpost'">New Post</v-btn>
   </v-app-bar>
 </template>
 
