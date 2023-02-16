@@ -28,7 +28,7 @@ export default {
   methods: {
     async savePost() {
       const response = await this.$axios.post(
-        "http://ec2-52-63-159-171.ap-southeast-2.compute.amazonaws.com/todos",
+        "http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries",
         { title: this.title, content: this.content }
       );
       // handle response

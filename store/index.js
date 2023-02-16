@@ -8,7 +8,7 @@ export const state = () => ({
   }
   export const actions = {
     async fetchPosts({ commit }) {
-      const response = await this.$axios.get('http://ec2-52-63-159-171.ap-southeast-2.compute.amazonaws.com/todos')
+      const response = await this.$axios.get('http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries/')
       commit('setPosts', response.data)
     }
   }

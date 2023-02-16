@@ -7,22 +7,23 @@
       <v-card-text>
         {{ post.content }}
       </v-card-text>
+      <v-card-actions>
+        <v-btn color="dark" :to="'/'">Back</v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import CircularJSON from 'circular-json'
-
 export default {
-  async fetch() {
-    const response = await this.$axios.get(`http://ec2-52-63-159-171.ap-southeast-2.compute.amazonaws.com/todos${this.$route.params.id}`)
-    this.post = CircularJSON.parse(CircularJSON.stringify(response.data))
-  },
   data() {
     return {
-      post: {}
+      post: ''
     }
+  },
+  async fetch() {
+    const { data } = await this.$axios.get(`http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries/${this.$route.params.id}`)
+    this.post = data
   }
 }
 </script>
