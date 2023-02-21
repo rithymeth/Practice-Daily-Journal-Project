@@ -1,18 +1,16 @@
 <template>
-   <v-container>
+  <v-container>
     <v-card class="mt-6">
-      <v-card-title>
-        New Post
-      </v-card-title>
+      <v-card-title> New Post </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form @submit.prevent="submitForm">
           <v-text-field v-model="title" label="Title"></v-text-field>
           <v-textarea v-model="content" label="Content"></v-textarea>
+          <v-btn style="background-color: #2196f3; color: white" type="submit"
+            >Post</v-btn
+          >
         </v-form>
       </v-card-text>
-      <v-card-actions>
-        <v-btn style="background-color: #2196f3; color: white;" @click="savePost">Post</v-btn>
-      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -26,12 +24,12 @@ export default {
     };
   },
   methods: {
-    async savePost() {
+    async submitForm() {
       const response = await this.$axios.post(
         "http://ec2-18-183-190-208.ap-northeast-1.compute.amazonaws.com/entries",
         { title: this.title, content: this.content }
-      );
-      // handle response
+      )
+      this.$router.push('/')
     },
   },
   computed: {
